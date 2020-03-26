@@ -6,6 +6,8 @@ Requipments
 Module Python Requipments
 * requests
 * ssl
+* re
+* socket
 
 How Usage Tools
 > python2 cp.py <list.txt>
