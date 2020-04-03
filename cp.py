@@ -2,6 +2,7 @@ import os,sys,re
 import requests
 import ssl
 import socket
+import httplib
 import urllib2
 from multiprocessing import Pool
 from multiprocessing.dummy import Pool as ThreadPool
@@ -75,7 +76,7 @@ def main(url):
 			else:
 				print(urls+red+' --> Disable'+reset)
 			pass
-	except(urllib2.URLError,ssl.CertificateError,socket.error):
+	except(urllib2.URLError,ssl.CertificateError,socket.error,httplib.InvalidURL):
 			print(urls+yellow+' --> Cpanel Not Found'+reset)
 	except ValueError:
 		pass
@@ -89,5 +90,5 @@ t.join()
 
 if __name__ == '__main__': 
  
-    print("Save File cPanel Active :"+green+" active.txt")
+    print("Site cPanel Active :"+green+" active.txt")
     print(blue+"Sterben404 - EXI2T Cyber Team"+reset)
