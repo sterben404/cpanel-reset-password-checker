@@ -12,6 +12,7 @@ Module Python Requipments
 How Usage Tools
 > python2 cp.py <list.txt>
 
+> List must contain http://site.com/ or http://site.com/cpanel/
 
 Dont Forget To Follow
 
