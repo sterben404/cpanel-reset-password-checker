@@ -46,7 +46,7 @@ print(yellow+"""_______________________________
 < Mass cPanel Reset Password Checker >
  -------------------------------""")
 print(blue+"Author By Sterben404"+reset)
-print(green+"List : http://site.com/")
+print(green+"List : http://site.com/"+reset)
 def error():
 	try:
 		requests.post('http://www.google.com')
@@ -63,22 +63,23 @@ def error():
 error()
 def main(url):
 	try:
-		urls = url.replace('/','/cpanel/').replace('http:/cpanel//cpanel/','http://').replace('https:/cpanel//cpanel/','https://').strip()
+		urls = url+'/cpanel/'.strip()
 		req = urllib2.Request(urls, headers={'User-Agent': 'Mozilla/5.0'})
-		sites = urllib2.urlopen(req+'/',timeout=6)
+		sites = urllib2.urlopen(req,timeout=6)
+		print(urls)
 		regex = re.findall('(?=://)(.*?\d)(?=/")', sites.read())
-		for url in regex:
-			find = urllib2.urlopen('http'+url,timeout=6)
+		for u in regex:
+			find = urllib2.urlopen('https'+u+'/', timeout=6)
 			if 'Reset Password' in find.read():
-				print(urls+green+' --> Active'+reset)
+				print(url+green+' --> Active'+reset)
 				with open('active.txt','ab') as active:
 					active.write(urls+'\n')
 					active.close()
 			else:
-				print(urls+red+' --> Disable'+reset)
+				print(url+red+' --> Disable'+reset)
 			pass
 	except(urllib2.URLError,ssl.CertificateError,socket.error,httplib.InvalidURL):
-			print(urls+yellow+' --> Cpanel Not Found'+reset)
+			print(url+yellow+' --> Cpanel Not Found'+reset)
 	except ValueError:
 		pass
 pass
