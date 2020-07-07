@@ -65,20 +65,20 @@ def main(url):
 	try:
 		urls = url.replace('/','/cpanel/').replace('http:/cpanel//cpanel/','http://').replace('https:/cpanel//cpanel/','https://').strip()
 		req = urllib2.Request(urls, headers={'User-Agent': 'Mozilla/5.0'})
-		sites = urllib2.urlopen(req,timeout=6)
+		sites = urllib2.urlopen(req+'/',timeout=6)
 		regex = re.findall('(?=://)(.*?\d)(?=/")', sites.read())
 		for url in regex:
 			find = urllib2.urlopen('http'+url,timeout=6)
 			if 'Reset Password' in find.read():
-				print(url+green+' --> Active'+reset)
+				print(urls+green+' --> Active'+reset)
 				with open('active.txt','ab') as active:
 					active.write(urls+'\n')
 					active.close()
 			else:
-				print(url+red+' --> Disable'+reset)
+				print(urls+red+' --> Disable'+reset)
 			pass
 	except(urllib2.URLError,ssl.CertificateError,socket.error,httplib.InvalidURL):
-			print(url+yellow+' --> Cpanel Not Found'+reset)
+			print(urls+yellow+' --> Cpanel Not Found'+reset)
 	except ValueError:
 		pass
 pass
